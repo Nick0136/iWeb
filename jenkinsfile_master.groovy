@@ -17,7 +17,7 @@ stage('maven compile & package') {
         def dkHome = tool 'docker_master'
         env.PATH = "${mvnHome}/bin:${env.PATH}"
         env.PATH = "${jdkHome}/bin:${env.PATH}"
-        env.PATH = "${dkHome}/bin:${env.PATH}"
+        env.PATH = "${dkHome}:${env.PATH}"
         sh "mvn clean install"
         sh "mv target/iWeb.war target/ROOT.war"
     }
