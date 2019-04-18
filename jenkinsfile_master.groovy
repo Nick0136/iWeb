@@ -26,6 +26,7 @@ stage('maven compile & package') {
 stage('clean docker environment') {
     node('master'){
         try{
+            sh 'service docker start'
             sh 'docker stop iWebObj'
         }catch(exc){
             echo 'iWebObj container is not running!'
