@@ -17,7 +17,7 @@ stage('maven compile & package') {
         def dkHome = tool 'docker_master'
         env.PATH = "${mvnHome}/bin:${env.PATH}"
         env.PATH = "${jdkHome}/bin:${env.PATH}"
-        env.PATH = "${dkHome}:${env.PATH}"
+        env.PATH = "${dkHome}/bin:${env.PATH}"
         sh "mvn clean install"
         sh "mv target/iWeb.war target/ROOT.war"
     }
@@ -26,7 +26,7 @@ stage('maven compile & package') {
 stage('clean docker environment') {
     node('master'){
         try{
-            sh 'service docker start'
+          //  sh 'service docker start'
             sh 'docker stop iWebObj'
         }catch(exc){
             echo 'iWebObj container is not running!'
