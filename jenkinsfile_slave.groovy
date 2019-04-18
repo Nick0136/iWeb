@@ -1,5 +1,5 @@
 stage('pull source code') {
-    node('slave'){
+    node('automation'){
         git([url: 'git@github.com:princeqjzh/iWeb.git', branch: 'master'])
     }
 }
