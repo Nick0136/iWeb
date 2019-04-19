@@ -22,13 +22,13 @@ stage('maven compile & package') {
 stage('clean docker environment') {
     node('automation'){
         try{
-            sh 'docker stop iWebObj'
+            sh 'sudo docker stop iWebObj'
         }catch(exc){
             echo 'iWebObj container is not running!'
         }
 
         try{
-            sh 'docker rm iWebObj'
+            sh 'sudo docker rm iWebObj'
         }catch(exc){
             echo 'iWebObj container does not exist!'
         }
@@ -53,7 +53,7 @@ stage('make new docker image') {
 stage('start docker container') {
     node('automation'){
         try{
-            sh 'docker run --name iWebObj -d -p 8111:8080 iweb'
+            sh 'sudo docker run --name iWebObj -d -p 8111:8080 iweb'
         }catch(exc){
             echo 'Start docker image failed, please check the environment!'
         }
