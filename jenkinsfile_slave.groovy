@@ -5,7 +5,7 @@ stage('pull source code') {
 }
 
 stage('maven compile & package') {
-    node('automation){
+    node('automation'){
         sh ". /etc/profile"
         sh ". ~/.bash_profile"
 
