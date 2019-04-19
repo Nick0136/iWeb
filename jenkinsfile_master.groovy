@@ -27,13 +27,13 @@ stage('clean docker environment') {
     node('master'){
         try{
           //  sh 'service docker start'
-            sh 'docker stop iWebObj'
+            sh 'docker stop iWebObj --privileged'
         }catch(exc){
             echo 'iWebObj container is not running!'
         }
 
         try{
-            sh 'docker rm iWebObj'
+            sh 'docker rm iWebObj --privileged'
         }catch(exc){
             echo 'iWebObj container does not exist!'
         }
@@ -58,7 +58,7 @@ stage('make new docker image') {
 stage('start docker container') {
     node('master'){
         try{
-            sh 'docker run --name iWebObj -d -p 8111:8080 iweb'
+            sh 'docker run --name iWebObj -d -p 8111:8080 iweb --privileged'
         }catch(exc){
             echo 'Start docker image failed, please check the environment!'
         }
