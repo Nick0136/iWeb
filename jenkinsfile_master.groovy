@@ -8,8 +8,8 @@ stage('pull source code') {
 
 stage('maven compile & package') {
     node('master'){
-        sh ". /etc/profile"
-        sh ". ~/.bash_profile"
+        shell ". /etc/profile"
+        shell ". ~/.bash_profile"
 
         //定义maven java环境
         //def mvnHome = tool 'M36'
@@ -18,8 +18,8 @@ stage('maven compile & package') {
         //env.PATH = "${mvnHome}/bin:${env.PATH}"
         //env.PATH = "${jdkHome}/bin:${env.PATH}"
        // env.PATH = "${dkHome}/bin:${env.PATH}"
-        sh "mvn clean install"
-        sh "mv target/iWeb.war target/ROOT.war"
+        shell "mvn clean install"
+        shell "mv target/iWeb.war target/ROOT.war"
     }
 }
 
@@ -27,18 +27,18 @@ stage('clean docker environment') {
     node('master'){
         try{
           //  sh 'service docker start'
-            sh 'docker stop iWebObj'
+            shell 'docker stop iWebObj'
         }catch(exc){
             echo 'iWebObj container is not running!'
         }
 
         try{
-            sh 'docker rm iWebObj'
+            shell 'docker rm iWebObj'
         }catch(exc){
             echo 'iWebObj container does not exist!'
         }
         try{
-            sh 'docker rmi iweb'
+            shell 'docker rmi iweb'
         }catch(exc){
             echo 'iweb image does not exist!'
         }
@@ -48,7 +48,7 @@ stage('clean docker environment') {
 stage('make new docker image') {
     node('master'){
         try{
-            sh 'docker build -t iweb .'
+            shell 'docker build -t iweb .'
         }catch(exc){
             echo 'Make iweb docker image failed, please check the environment!'
         }
@@ -58,7 +58,7 @@ stage('make new docker image') {
 stage('start docker container') {
     node('master'){
         try{
-            sh 'docker run --name iWebObj -d -p 8111:8080 iweb --privileged'
+            shell 'docker run --name iWebObj -d -p 8111:8080 iweb --privileged'
         }catch(exc){
             echo 'Start docker image failed, please check the environment!'
         }
