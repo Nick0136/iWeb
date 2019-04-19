@@ -9,7 +9,7 @@ stage('pull source code') {
 stage('maven compile & package') {
     node('master'){
         sh ". /etc/profile"
-       // sh ". ~/.bash_profile"
+        sh ". ~/.bash_profile"
 
         //定义maven java环境
         def mvnHome = tool 'maven-3.6.0_master'
@@ -27,13 +27,13 @@ stage('clean docker environment') {
     node('master'){
         try{
           //  sh 'service docker start'
-            sh 'docker stop iWebObj --privileged'
+            sh 'docker stop iWebObj'
         }catch(exc){
             echo 'iWebObj container is not running!'
         }
 
         try{
-            sh 'docker rm iWebObj --privileged'
+            sh 'docker rm iWebObj'
         }catch(exc){
             echo 'iWebObj container does not exist!'
         }
