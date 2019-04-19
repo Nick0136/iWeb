@@ -12,11 +12,11 @@ stage('maven compile & package') {
         sh ". ~/.bash_profile"
 
         //定义maven java环境
-        def mvnHome = tool 'M36'
-        def jdkHome = tool 'jdk1.8_master'
+        //def mvnHome = tool 'M36'
+        //def jdkHome = tool 'jdk1.8_master'
        // def dkHome = tool 'docker_master'
-        env.PATH = "${mvnHome}/bin:${env.PATH}"
-        env.PATH = "${jdkHome}/bin:${env.PATH}"
+        //env.PATH = "${mvnHome}/bin:${env.PATH}"
+        //env.PATH = "${jdkHome}/bin:${env.PATH}"
        // env.PATH = "${dkHome}/bin:${env.PATH}"
         sh "mvn clean install"
         sh "mv target/iWeb.war target/ROOT.war"
