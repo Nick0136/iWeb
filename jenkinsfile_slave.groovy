@@ -11,8 +11,8 @@ stage('maven compile & package') {
 
         //定义maven java环境
        // def mvnHome = tool 'M36'
-      //  def jdkHome = tool 'jdk1.8'
-      //  env.PATH = "${mvnHome}/bin:${env.PATH}"
+        def dkHome = tool 'docker_node'
+        env.PATH = "${dkHome}/bin:${env.PATH}"
       //  env.PATH = "${jdkHome}/bin:${env.PATH}"
         sh "mvn clean install"
         sh "mv target/iWeb.war target/ROOT.war"
@@ -22,13 +22,13 @@ stage('maven compile & package') {
 stage('clean docker environment') {
     node('automation'){
         try{
-            sh 'sudo docker stop iWebObj'
+            sh 'docker stop iWebObj'
         }catch(exc){
             echo 'iWebObj container is not running!'
         }
 
         try{
-            sh 'sudo docker rm iWebObj'
+            sh 'docker rm iWebObj'
         }catch(exc){
             echo 'iWebObj container does not exist!'
         }
@@ -53,7 +53,7 @@ stage('make new docker image') {
 stage('start docker container') {
     node('automation'){
         try{
-            sh 'sudo docker run --name iWebObj -d -p 8111:8080 iweb'
+            sh 'docker run --name iWebObj -d -p 8111:8080 iweb'
         }catch(exc){
             echo 'Start docker image failed, please check the environment!'
         }
