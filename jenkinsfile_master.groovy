@@ -9,10 +9,10 @@ stage('pull source code') {
 stage('maven compile & package') {
     node('master'){
         sh ". /etc/profile"
-        //sh ". ~/.bash_profile"
+        sh ". ~/.bash_profile"
 
         //定义maven java环境
-        def mvnHome = tool 'maven-3.6.0_master'
+        def mvnHome = tool 'M36'
         def jdkHome = tool 'jdk1.8_master'
        // def dkHome = tool 'docker_master'
         env.PATH = "${mvnHome}/bin:${env.PATH}"
